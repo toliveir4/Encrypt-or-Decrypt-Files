@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     inputfile = options.inputfile
     outputfile = os.path.join(options.outputfile, os.path.basename(options.inputfile).split('.')[0] + '.bin')
-    out_protected = os.path.join(options.outputfile, os.path.basename(options.inputfile).split('.')[0] + '.zip')
+    out_protected = os.path.join(os.path.dirname(inputfile), os.path.basename(options.inputfile).split('.')[0] + '.zip')
 
     if options.encrypt:
         encrypt()
