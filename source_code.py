@@ -51,6 +51,12 @@ def decrypt():
     # decrypt data
     decrypted_data = f.decrypt(encrypted_data)
 
+    # csv file for input
+    if os.path.basename(inputfile).split('.')[1] == 'csv':
+        os.remove(outputfile)
+        info = str(decrypted_data, 'utf-8').replace('\n', '\n' + '-'*50 + '\n')
+        return print('\033[01m' + info.replace(',', '\n') + '\033[0m')
+
     os.remove(outputfile)
     return print('\033[01m' + str(decrypted_data, 'utf-8') + '\033[0m')
 
@@ -70,7 +76,7 @@ if __name__ == '__main__':
 
     parser.add_option(
         '-o', '--output', type="string", dest='outputfile',
-        help="File Output Path For Saving Encrypter Cipher", default=".")
+        help="File Output Path For Saving Encrypter Cipher", default='.')
 
     parser.add_option(
         '-e', '--encrypt', action='store_true', dest='encrypt',
