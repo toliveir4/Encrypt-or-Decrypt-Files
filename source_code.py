@@ -55,10 +55,32 @@ def decrypt():
     if os.path.basename(inputfile).split('.')[1] == 'csv':
         os.remove(outputfile)
         info = str(decrypted_data, 'utf-8').replace('\n', '\n' + '-'*50 + '\n')
-        return print('\033[01m' + info.replace(',', '\n') + '\033[0m')
+        print('\033[01m' + info.replace(',', '\n') + '\033[0m')
+        save = str(input("\033[01mWant to save the original content? (default: no) \033[0m"))
+        if save.lower() == 'yes' or save.lower() == 'y':
+            splited = os.path.basename(options.inputfile).split('.')
+            newF = os.path.join(options.inputfile, splited[0] + '_new.' + splited[1])
+            with open(newF, 'w') as f:
+                f.write(str(decrypted_data, 'utf-8'))
+                print("\033[01m\033[92mSuccessfully saved\033[0m")
+            return
+        print("\033[01m\033[93mTerminated without saving original info\033[0m")
+        return
 
     os.remove(outputfile)
-    return print('\033[01m' + str(decrypted_data, 'utf-8') + '\033[0m')
+    print ('\n\033[01m\033[92mFile Content: \033[0m')
+    print('\033[01m' + str(decrypted_data, 'utf-8') + '\033[0m')
+
+    save = str(input("\033[01m\n\nWant to save the original content? (default: no) \033[0m"))
+    if save.lower() == 'yes' or save.lower() == 'y':
+        splited = os.path.basename(options.inputfile).split('.')
+        newF = options.inputfile.replace(splited[0], splited[0] + '_new.' + splited[1]) 
+        with open(newF, 'w') as f:
+            f.write(str(decrypted_data, 'utf-8'))
+            print("\033[01m\033[92mSuccessfully saved\033[0m")
+        return
+    print("\033[01m\033[93mTerminated without saving!\033[0m")
+    return
 
 
 if __name__ == '__main__':
